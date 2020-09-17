@@ -2,45 +2,51 @@ import React, { useState, useEffect } from "react";
 
 import Header from "./components/header/header";
 import Post from "./components/post/post";
+import { db } from "./firebase";
+import ModalPop from "./components/modal/modalPop";
 
 import "./App.scss";
+import { Button } from "@material-ui/core";
 
 function App() {
-  const [posts, setPosts] = useState([
-    {
-      username: "Zvonimir",
-      caption: "Making an Instagram Clone!!!",
-      avatarUrl:
-        "https://images.freeimages.com/images/large-previews/bec/snow-person-1186316.jpg",
-      imageUrl:
-        "https://cdn-media-1.freecodecamp.org/images/1*y6C4nSvy2Woe0m7bWEn4BA.png",
-    },
-    {
-      username: "Deer",
-      caption: "Imma impale your ass biatch!!!",
-      avatarUrl:
-        "https://images.freeimages.com/images/large-previews/08e/up-close-personal-2-1359478.jpg",
-      imageUrl:
-        "https://images.freeimages.com/images/large-previews/568/horns-1175375.jpg",
-    },
-    {
-      username: "Charlotte",
-      caption: "I love butterflys!!!",
-      avatarUrl:
-        "https://images.freeimages.com/images/large-previews/214/charlotte-1529045.jpg",
-      imageUrl:
-        "https://images.freeimages.com/images/large-previews/78e/butterfly-1173173.jpg",
-    },
-  ]);
+  const [posts, setPosts] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [openSignIn, setOpenSignIn] = useState(false);
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  useEffect = (() => {}, []);
+  useEffect(() => {
+    db.collection("posts").onSnapshot((snapshot) => {
+      setPosts(
+        snapshot.docs.map((doc) => ({
+          id: doc.id,
+          post: doc.data(),
+        }))
+      );
+    });
+  }, []);
 
   return (
     <div className="app">
       <Header />
+      <ModalPop
+        open={open}
+        setOpen={setOpen}
+        username={username}
+        setUsername={setUsername}
+        email={email}
+        setEmail={setEmail}
+        password={password}
+        setPassword={setPassword}
+        openSignIn={openSignIn}
+        setOpenSignIn={setOpenSignIn}
+      />
+      <Button onClick={() => setOpen(true)}>SignIn</Button>
+      <Button onClick={() => setOpenSignIn(true)}>LogIn</Button>
       <h1>Lets make an instagram clone in React.js!!!</h1>
-      {posts.map((post) => (
-        <Post key={post.username} {...post} />
+      {posts.map(({ id, post }) => (
+        <Post key={id} {...post} />
       ))}
     </div>
   );
