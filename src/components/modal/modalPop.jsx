@@ -48,6 +48,7 @@ function ModalPop({
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
+        console.log(authUser);
         setUser(authUser);
         //user logged in
         if (authUser.displayName) {
@@ -69,7 +70,7 @@ function ModalPop({
       //perform some cleanup actions
       unsubscribe();
     };
-  }, [user, username]);
+  }, [user, username, setUser]);
 
   const clearForm = () => {
     setOpen(false);
@@ -85,17 +86,17 @@ function ModalPop({
     auth
       .createUserWithEmailAndPassword(email, password)
       .then((authUser) => {
+        console.log(authUser.user);
         authUser.user.updateProfile({
           displayName: username,
         });
       })
       .catch((error) => alert(error.message));
-    clearForm();
   };
 
-  const signIn = (e) => {
+  const signIn = async (e) => {
     e.preventDefault();
-    auth
+    await auth
       .signInWithEmailAndPassword(email, password)
       .catch((error) => console.log(error.message));
     clearForm();
@@ -169,7 +170,10 @@ function ModalPop({
               name="username"
               placeholder="username"
               value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              onChange={(e) => {
+                console.log(username);
+                return setUsername(e.target.value);
+              }}
             />
             <Input
               type="email"

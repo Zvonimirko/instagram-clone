@@ -5,6 +5,7 @@ import Post from "./components/post/post";
 import { db } from "./firebase";
 import ModalPop from "./components/modal/modalPop";
 import ImageUpload from "./components/imageUpload/imageUpload";
+import InstagramEmbed from "react-instagram-embed";
 
 import "./App.scss";
 
@@ -47,14 +48,32 @@ function App() {
         user={user}
         setUser={setUser}
       />
-      <h1>Lets make an instagram clone in React.js!!!</h1>
-      {posts.map(({ id, post }) => (
-        <Post key={id} {...post} user={user} />
-      ))}
+      <div className="posts__container">
+        <div className="posts__container__left">
+          {posts.map(({ id, post }) => (
+            <Post key={id} {...post} user={user} postId={id} />
+          ))}
+        </div>
+        <div className="posts__container__right">
+          <InstagramEmbed
+            url="https://instagr.am/p/Zw9o4/"
+            maxWidth={320}
+            hideCaption={false}
+            containerTagName="div"
+            protocol=""
+            injectScript
+            onLoading={() => {}}
+            onSuccess={() => {}}
+            onAfterRender={() => {}}
+            onFailure={() => {}}
+          />
+        </div>
+      </div>
+
       {user?.displayName ? (
         <ImageUpload username={user.displayName} />
       ) : (
-        "Login to upload"
+        <center>Login to upload</center>
       )}
     </div>
   );

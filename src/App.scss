@@ -1,8 +1,18 @@
 * {
   margin: 0;
+  box-sizing: border-box;
 }
 
 .app {
   background-color: #fafafa;
-  height: 100vh;
+  height: 100%;
+  padding-bottom: 20px;
+
+  .posts__container {
+    display: flex;
+    justify-content: center;
+    .posts__container__right {
+      margin-top: 20px;
+    }
+  }
 }

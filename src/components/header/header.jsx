@@ -10,11 +10,13 @@ function Header({ setOpen, setOpenSignIn, user }) {
         alt="insta-logo"
         src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png"
       />
-      {user ? "" : <Button onClick={() => setOpen(true)}>SignUp</Button>}
+      <div>
+        {user ? "" : <Button onClick={() => setOpen(true)}>SignUp</Button>}
 
-      <Button onClick={() => setOpenSignIn(true)}>
-        {user ? "Logout" : "Login"}
-      </Button>
+        <Button onClick={() => setOpenSignIn(true)}>
+          {user ? "Logout" : "Login"}
+        </Button>
+      </div>
     </div>
   );
 }
