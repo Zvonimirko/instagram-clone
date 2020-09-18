@@ -1,0 +1,16 @@
+.imageUpload {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin: 10px auto;
+  // position: fixed;
+  // bottom: 0;
+
+  .imageUpload__progress {
+    width: 100%;
+  }
+
+  .imageUpload__caption {
+    margin: 10px 0;
+  }
+}

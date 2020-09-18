@@ -4,9 +4,9 @@ import Header from "./components/header/header";
 import Post from "./components/post/post";
 import { db } from "./firebase";
 import ModalPop from "./components/modal/modalPop";
+import ImageUpload from "./components/imageUpload/imageUpload";
 
 import "./App.scss";
-import { Button } from "@material-ui/core";
 
 function App() {
   const [posts, setPosts] = useState([]);
@@ -32,7 +32,7 @@ function App() {
 
   return (
     <div className="app">
-      <Header />
+      <Header setOpen={setOpen} setOpenSignIn={setOpenSignIn} user={user} />
       <ModalPop
         open={open}
         setOpen={setOpen}
@@ -47,12 +47,15 @@ function App() {
         user={user}
         setUser={setUser}
       />
-      <Button onClick={() => setOpen(true)}>SignIn</Button>
-      <Button onClick={() => setOpenSignIn(true)}>LogIn</Button>
       <h1>Lets make an instagram clone in React.js!!!</h1>
       {posts.map(({ id, post }) => (
         <Post key={id} {...post} user={user} />
       ))}
+      {user?.displayName ? (
+        <ImageUpload username={user.displayName} />
+      ) : (
+        "Login to upload"
+      )}
     </div>
   );
 }

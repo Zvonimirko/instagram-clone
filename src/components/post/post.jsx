@@ -4,8 +4,6 @@ import Box from "@material-ui/core/Box";
 
 import "./post.scss";
 
-import ImageUpload from "../imageUpload/imageUpload";
-
 function Post({ username, caption, imageUrl, avatarUrl, user }) {
   return (
     <div className="post">
@@ -28,11 +26,6 @@ function Post({ username, caption, imageUrl, avatarUrl, user }) {
       <h4 className="post__text">
         <strong>{username}</strong> {caption}
       </h4>
-      {user?.displayName ? (
-        <ImageUpload username={user.displayName} />
-      ) : (
-        "Login to upload"
-      )}
     </div>
   );
 }
