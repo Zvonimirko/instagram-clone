@@ -15,16 +15,19 @@ function App() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
-    db.collection("posts").onSnapshot((snapshot) => {
-      setPosts(
-        snapshot.docs.map((doc) => ({
-          id: doc.id,
-          post: doc.data(),
-        }))
-      );
-    });
+    db.collection("posts")
+      .orderBy("timestamp", "desc")
+      .onSnapshot((snapshot) => {
+        setPosts(
+          snapshot.docs.map((doc) => ({
+            id: doc.id,
+            post: doc.data(),
+          }))
+        );
+      });
   }, []);
 
   return (
@@ -41,12 +44,14 @@ function App() {
         setPassword={setPassword}
         openSignIn={openSignIn}
         setOpenSignIn={setOpenSignIn}
+        user={user}
+        setUser={setUser}
       />
       <Button onClick={() => setOpen(true)}>SignIn</Button>
       <Button onClick={() => setOpenSignIn(true)}>LogIn</Button>
       <h1>Lets make an instagram clone in React.js!!!</h1>
       {posts.map(({ id, post }) => (
-        <Post key={id} {...post} />
+        <Post key={id} {...post} user={user} />
       ))}
     </div>
   );

@@ -1,10 +1,12 @@
 import React from "react";
-import "./post.scss";
 import Avatar from "@material-ui/core/Avatar";
 import Box from "@material-ui/core/Box";
-import Message from "../message/message";
 
-function Post({ username, caption, imageUrl, avatarUrl }) {
+import "./post.scss";
+
+import ImageUpload from "../imageUpload/imageUpload";
+
+function Post({ username, caption, imageUrl, avatarUrl, user }) {
   return (
     <div className="post">
       <div className="post__header">
@@ -26,7 +28,11 @@ function Post({ username, caption, imageUrl, avatarUrl }) {
       <h4 className="post__text">
         <strong>{username}</strong> {caption}
       </h4>
-      <Message />
+      {user?.displayName ? (
+        <ImageUpload username={user.displayName} />
+      ) : (
+        "Login to upload"
+      )}
     </div>
   );
 }

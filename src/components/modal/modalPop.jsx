@@ -39,10 +39,11 @@ function ModalPop({
   setPassword,
   openSignIn,
   setOpenSignIn,
+  user,
+  setUser,
 }) {
   const classes = useStyles();
   const [modalStyle] = useState(getModalStyle);
-  const [user, setUser] = useState(null);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
@@ -99,7 +100,6 @@ function ModalPop({
       .catch((error) => console.log(error.message));
     clearForm();
   };
-  console.log(user);
 
   return (
     <div>
