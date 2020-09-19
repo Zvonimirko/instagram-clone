@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Box from "@material-ui/core/Box";
-import { db } from "../../firebase";
-
 import firebase from "firebase";
+
+import { db } from "../../firebase";
+import DeleteComment from "../deleteComment/deleteComment";
 
 import "./post.scss";
 
@@ -70,8 +71,11 @@ function Post({ username, caption, imageUrl, avatarUrl, postId, user }) {
       <div className="post__comments">
         {user
           ? comments.map(({ id, comment }) => (
-              <p key={id}>
-                <strong>{user.displayName}</strong> {comment.text}
+              <p key={id} className="post__comments__comment">
+                <span>
+                  <strong>{user.displayName}</strong> {comment.text}
+                </span>
+                <DeleteComment msgId={id} postId={postId} />
               </p>
             ))
           : ""}

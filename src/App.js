@@ -31,6 +31,14 @@ function App() {
       });
   }, []);
 
+  const renderPost = () => (
+    <div className="posts__container__left">
+      {posts.map(({ id, post }) => (
+        <Post key={id} {...post} user={user} postId={id} />
+      ))}
+    </div>
+  );
+
   return (
     <div className="app">
       <Header setOpen={setOpen} setOpenSignIn={setOpenSignIn} user={user} />
@@ -49,11 +57,7 @@ function App() {
         setUser={setUser}
       />
       <div className="posts__container">
-        <div className="posts__container__left">
-          {posts.map(({ id, post }) => (
-            <Post key={id} {...post} user={user} postId={id} />
-          ))}
-        </div>
+        {renderPost()}
         <div className="posts__container__right">
           <InstagramEmbed
             url="https://instagr.am/p/Zw9o4/"

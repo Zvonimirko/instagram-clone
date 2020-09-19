@@ -80,10 +80,10 @@ function ModalPop({
     setEmail("");
   };
 
-  const signUp = (e) => {
+  const signUp = async (e) => {
     e.preventDefault();
 
-    auth
+    await auth
       .createUserWithEmailAndPassword(email, password)
       .then((authUser) => {
         console.log(authUser.user);
@@ -92,11 +92,12 @@ function ModalPop({
         });
       })
       .catch((error) => alert(error.message));
+    clearForm();
   };
 
-  const signIn = async (e) => {
+  const signIn = (e) => {
     e.preventDefault();
-    await auth
+    auth
       .signInWithEmailAndPassword(email, password)
       .catch((error) => console.log(error.message));
     clearForm();
@@ -141,7 +142,7 @@ function ModalPop({
               onChange={(e) => setPassword(e.target.value)}
             />
             {user ? (
-              <Button onClick={() => auth.signOut()}>Logout</Button>
+              <Button onClick={async () => auth.signOut()}>Logout</Button>
             ) : (
               <div>
                 <Button onClick={signUp}>SignUp</Button>
@@ -190,7 +191,14 @@ function ModalPop({
               onChange={(e) => setPassword(e.target.value)}
             />
             {user ? (
-              <Button onClick={() => auth.signOut()}>Logout</Button>
+              <Button
+                onClick={() => {
+                  auth.signOut();
+                  clearForm();
+                }}
+              >
+                Logout
+              </Button>
             ) : (
               <div>
                 <Button onClick={signIn}>SignIn</Button>

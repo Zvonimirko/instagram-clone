@@ -55,4 +55,9 @@
   .post__comments {
     padding: 20px;
   }
+
+  .post__comments__comment {
+    display: flex;
+    justify-content: space-between;
+  }
 }
