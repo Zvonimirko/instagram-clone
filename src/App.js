@@ -39,6 +39,8 @@ function App() {
     </div>
   );
 
+  console.log(user);
+
   return (
     <div className="app">
       <Header setOpen={setOpen} setOpenSignIn={setOpenSignIn} user={user} />

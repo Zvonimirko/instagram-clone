@@ -48,18 +48,7 @@ function ModalPop({
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
-        console.log(authUser);
         setUser(authUser);
-        //user logged in
-        if (authUser.displayName) {
-          //dont update username
-          return user;
-        } else {
-          // if we just created someone
-          return authUser.updateProfile({
-            displayName: username,
-          });
-        }
       } else {
         // user logged out
         setUser(null);
@@ -86,8 +75,7 @@ function ModalPop({
     await auth
       .createUserWithEmailAndPassword(email, password)
       .then((authUser) => {
-        console.log(authUser.user);
-        authUser.user.updateProfile({
+        return authUser.user.updateProfile({
           displayName: username,
         });
       })

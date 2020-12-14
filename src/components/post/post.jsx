@@ -73,7 +73,7 @@ function Post({ username, caption, imageUrl, avatarUrl, postId, user }) {
           ? comments.map(({ id, comment }) => (
               <p key={id} className="post__comments__comment">
                 <span>
-                  <strong>{user.displayName}</strong> {comment.text}
+                  <strong>{comment.username}</strong> {comment.text}
                 </span>
                 <DeleteComment msgId={id} postId={postId} />
               </p>
